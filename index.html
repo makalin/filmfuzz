@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmFuzz - Retro Photo Effects</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1><i class="fas fa-camera-retro"></i> FilmFuzz</h1>
+                <p>Professional Retro Photo Effects</p>
+            </div>
+            <div class="header-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="resetBtn" class="reset-btn" title="Reset All Effects">
+                    <i class="fas fa-undo"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel - Controls -->
+            <div class="controls-panel">
+                <!-- Upload Section -->
+                <div class="control-section">
+                    <h3><i class="fas fa-upload"></i> Upload Image</h3>
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="imageInput" accept="image/*" hidden>
+                        <div class="upload-content">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload or drag & drop</p>
+                            <span>Supports: JPG, PNG, WebP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grain Effects -->
+                <div class="control-section">
+                    <h3><i class="fas fa-grain"></i> Grain Effects</h3>
+                    <div class="control-group">
+                        <label for="grainType">Type:</label>
+                        <select id="grainType">
+                            <option value="none">No Grain</option>
+                            <option value="fine">Fine Grain</option>
+                            <option value="coarse">Coarse Grain</option>
+                            <option value="silver">Silver Halide</option>
+                            <option value="color">Color Grain</option>
+                            <option value="vintage">Vintage Film</option>
+                            <option value="kodak">Kodak Gold</option>
+                            <option value="fuji">Fuji Pro</option>
+                            <option value="ilford">Ilford HP5</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="grainIntensity">Intensity: <span id="intensityValue">50</span>%</label>
+                        <input type="range" id="grainIntensity" min="0" max="100" value="50">
+                    </div>
+                    <div class="control-group">
+                        <label for="grainSize">Size: <span id="sizeValue">2</span>px</label>
+                        <input type="range" id="grainSize" min="1" max="5" value="2" step="0.5">
+                    </div>
+                </div>
+
+                <!-- Color Effects -->
+                <div class="control-section">
+                    <h3><i class="fas fa-palette"></i> Color Effects</h3>
+                    <div class="control-group">
+                        <label for="brightness">Brightness: <span id="brightnessValue">0</span></label>
+                        <input type="range" id="brightness" min="-100" max="100" value="0">
+                    </div>
+                    <div class="control-group">
+                        <label for="contrast">Contrast: <span id="contrastValue">0</span></label>
+                        <input type="range" id="contrast" min="-100" max="100" value="0">
+                    </div>
+                    <div class="control-group">
+                        <label for="saturation">Saturation: <span id="saturationValue">0</span></label>
+                        <input type="range" id="saturation" min="-100" max="100" value="0">
+                    </div>
+                    <div class="control-group">
+                        <label for="temperature">Temperature: <span id="temperatureValue">0</span></label>
+                        <input type="range" id="temperature" min="-100" max="100" value="0">
+                    </div>
+                </div>
+
+                <!-- Artifact Effects -->
+                <div class="control-section">
+                    <h3><i class="fas fa-magic"></i> Artifact Effects</h3>
+                    <div class="control-group">
+                        <label for="artifactType">Type:</label>
+                        <select id="artifactType">
+                            <option value="none">None</option>
+                            <option value="lightleak">Light Leaks</option>
+                            <option value="scratches">Scratches</option>
+                            <option value="dust">Dust Specks</option>
+                            <option value="vignette">Vignette</option>
+                            <option value="bokeh">Bokeh</option>
+                            <option value="lensflare">Lens Flare</option>
+                            <option value="chromatic">Chromatic Aberration</option>
+                            <option value="bloom">Light Bloom</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="artifactIntensity">Intensity: <span id="artifactIntensityValue">50</span>%</label>
+                        <input type="range" id="artifactIntensity" min="0" max="100" value="50">
+                    </div>
+                </div>
+
+                <!-- Presets -->
+                <div class="control-section">
+                    <h3><i class="fas fa-bookmark"></i> Presets</h3>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-preset="vintage">Vintage</button>
+                        <button class="preset-btn" data-preset="cinematic">Cinematic</button>
+                        <button class="preset-btn" data-preset="dramatic">Dramatic</button>
+                        <button class="preset-btn" data-preset="warm">Warm</button>
+                        <button class="preset-btn" data-preset="cool">Cool</button>
+                        <button class="preset-btn" data-preset="monochrome">Monochrome</button>
+                    </div>
+                </div>
+
+                <!-- Download -->
+                <div class="control-section">
+                    <button id="downloadBtn" class="download-button">
+                        <i class="fas fa-download"></i> Download Image
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Panel - Canvas -->
+            <div class="canvas-panel">
+                <div class="canvas-container">
+                    <canvas id="imageCanvas" width="800" height="600"></canvas>
+                    <div class="canvas-overlay" id="canvasOverlay">
+                        <div class="overlay-content">
+                            <i class="fas fa-image"></i>
+                            <h3>Upload an Image</h3>
+                            <p>Drag and drop your image here or click to browse</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas-info">
+                    <span id="imageInfo">No image loaded</span>
+                    <span id="canvasSize">800 × 600</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
