@@ -4,6 +4,8 @@ FilmFuzz is a modern, professional web-based photo editing application that tran
 
 ![FilmFuzz Screenshot](https://via.placeholder.com/800x400/667eea/ffffff?text=FilmFuzz+Professional+Photo+Effects)
 
+**[🌐 Try FilmFuzz Live](https://makalin.github.io/filmfuzz/)**
+
 ## ✨ Features
 
 ### 🎨 **Modern Interface**
@@ -176,7 +178,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **Live Demo**: [Coming Soon]
+- **Live Demo**: [https://makalin.github.io/filmfuzz/](https://makalin.github.io/filmfuzz/)
 - **Issues**: [GitHub Issues](https://github.com/makalin/filmfuzz/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/makalin/filmfuzz/discussions)
 
